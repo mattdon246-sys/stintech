@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume Section</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for small icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root{
+      --accent: #336163; /* user color */
+      --text-dark: #222;
+      --muted: #6b6b6b;
+      --bg: #ffffff;
+      --line-width: 3px;
+      --max-width: 1100px;
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    body{font-family:"Poppins", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; color:#222; background:#ffffff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+    a{color:inherit}
+
+    /* Container */
+    .resume-section{
+      max-width:1100px;
+      margin:48px auto;
+      padding:36px 28px;
+    }
+
+    .resume-header{
+      text-align:center;
+      margin-bottom:28px;
+    }
+    .resume-header h1{font-size:34px; margin:0 0 8px; font-weight:700; letter-spacing:0.2px;}
+    .underline{
+      height:5px; width:70px; background:#336163; margin:12px auto 0; border-radius:4px;
+    }
+    .resume-sub{color:#6b6b6b; font-size:14px; margin-top:10px;}
+
+    /* Two-column layout */
+    .resume-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:40px;
+      align-items:start;
+    }
+
+    /* Left column (summary + education) */
+    .left-col{
+      padding-left:18px;
+      position:relative;
+    }
+    .section-title{
+      font-size:22px; margin:0 0 14px; font-weight:700;
+    }
+
+    /* Vertical timeline line on left column */
+    .side-timeline{
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      margin-left: -18px; /* aligns the line with the small circle markers */
+      background: linear-gradient(to bottom, #336163, #336163);
+      border-radius:2px;
+    }
+
+    /* Circular marker used in summary and education entries */
+    .marker{
+      width:14px; height:14px; border-radius:50%;
+      border:3px solid #336163;
+      background: #fff;
+      display:inline-block;
+      vertical-align:middle;
+      margin-right:12px;
+      box-shadow:0 0 0 3px rgba(177,180,147,0.03);
+    }
+
+    /* Summary box */
+    .summary{
+      margin-bottom:28px;
+      padding-left:34px; /* offset so text doesn't sit over the timeline */
+    }
+    .summary .name{font-weight:700; font-size:18px; margin:0 0 8px;}
+    .summary p{font-size:14px; line-height:1.6; color:#6b6b6b; margin:0 0 12px; font-style:italic;}
+    .contact-list{list-style:none; padding:0; margin:8px 0 0; font-size:14px; color:#6b6b6b;}
+    .contact-list li{margin:10px 0}
+
+    /* Education items - stacked with markers */
+    .education{
+      margin-top:6px;
+      padding-left:34px;
+    }
+    .edu-item{
+      margin-bottom:26px;
+      position:relative;
+    }
+    .edu-item h4{margin:0 0 8px; font-size:16px; font-weight:600}
+    .edu-item .period{font-weight:700; color:#336163; font-size:13px; margin-bottom:8px;}
+    .edu-item .school{font-style:italic; color:#6b6b6b; font-size:14px; margin-bottom:8px;}
+    .edu-item p{color:#6b6b6b; font-size:14px; margin:0; line-height:1.6}
+
+    /* Right column */
+    .right-col{
+      padding-left:22px;
+      position:relative;
+      border-left: 1px solid rgba(0,0,0,0.04);
+    }
+
+    /* Right column timeline line */
+    .right-timeline{
+      position:absolute;
+      left: -20px; /* align line to center between columns */
+      top:0;
+      bottom:0;
+      width:4px;
+      background: linear-gradient(to bottom, #336163, #336163);
+      border-radius:2px;
+    }
+
+    .job{
+      padding-left:26px;
+      margin-bottom:24px;
+    }
+    .job .title{font-weight:700; font-size:18px; margin:0 0 8px; display:flex; align-items:center;}
+    .job .title .role{margin-left:12px; color:#6b6b6b; font-weight:600; font-size:14px}
+    .job .period{font-weight:700; color:#336163; margin-bottom:10px; font-size:13px;}
+    .job .company{font-style:italic; color:#6b6b6b; margin-bottom:8px;}
+    .job ul{margin:8px 0 0; padding-left:18px; color:#6b6b6b; line-height:1.6}
+    .job ul li{margin:8px 0}
+
+    /* Small circles on the center divider for right column entries */
+    .center-circle{
+      position:absolute;
+      left:-34px;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      border:3px solid #336163;
+      background:#fff;
+      top:8px;
+    }
+
+    /* Bottom-right scroll-to-top button */
+    .to-top{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      background:#336163;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 6px 18px rgba(0,0,0,0.15);
+      cursor:pointer;
+      border:none;
+      z-index:999;
+    }
+    .to-top i{transform:translateY(-2px)}
+
+    /* Media queries - collapse to one column on small screens */
+    @media (max-width:880px){
+      .resume-grid{grid-template-columns:1fr; gap:18px}
+      .side-timeline, .right-timeline{display:none}
+      .left-col, .right-col{padding-left:0; border-left:none}
+      .summary, .education, .job{padding-left:0}
+      .center-circle{left:-8px}
+    }
+
+    /* Minor visual polish */
+    ul{margin:0}
+    .muted{color:#6b6b6b}
+  </style>
+</head>
+<body>
+
+  <section class="resume-section" aria-label="Resume">
+    <div class="resume-header">
+      <h1>Resume</h1>
+      <div class="underline" aria-hidden="true"></div>
+      <div class="resume-sub">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</div>
+    </div>
+
+    <div class="resume-grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="left-col">
+        <div class="side-timeline" aria-hidden="true"></div>
+
+        <div class="summary">
+          <div style="display:flex; align-items:center;">
+            <span class="marker" aria-hidden="true"></span>
+            <div style="flex:1;">
+              <div class="name">BRANDON JOHNSON</div>
+            </div>
+          </div>
+
+          <p>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</p>
+
+          <ul class="contact-list">
+            <li><i class="fa-regular fa-location-dot" style="margin-right:8px"></i>Portland par 127, Orlando, FL</li>
+            <li><i class="fa-solid fa-phone" style="margin-right:8px"></i>(123) 456-7891</li>
+            <li><i class="fa-solid fa-envelope" style="margin-right:8px"></i>alice.barkley@example.com</li>
+          </ul>
+        </div>
+
+        <div class="education">
+          <h3 class="section-title">Education</h3>
+
+          <div class="edu-item">
+            <div style="display:flex; align-items:center;">
+              <span class="marker" aria-hidden="true"></span>
+              <h4>MASTER OF FINE ARTS & GRAPHIC DESIGN</h4>
+            </div>
+            <div class="period">2015 - 2016</div>
+            <div class="school">Rochester Institute of Technology, Rochester, NY</div>
+            <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatem qui ut dignissimos deleniti nerada porti sand markend</p>
+          </div>
+
+          <div class="edu-item">
+            <div style="display:flex; align-items:center;">
+              <span class="marker" aria-hidden="true"></span>
+              <h4>BACHELOR OF FINE ARTS & GRAPHIC DESIGN</h4>
+            </div>
+            <div class="period">2010 - 2014</div>
+            <div class="school">Rochester Institute of Technology, Rochester, NY</div>
+            <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+        <div class="right-timeline" aria-hidden="true"></div>
+
+        <h3 class="section-title">Professional Experience</h3>
+
+        <div class="job" style="position:relative;">
+          <div class="center-circle" aria-hidden="true" style="top:28px;"></div>
+          <div class="title"><strong>SENIOR GRAPHIC DESIGN SPECIALIST</strong></div>
+          <div class="period">2019 - Present</div>
+          <div class="company">Experion, New York, NY</div>
+          <ul>
+            <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
+            <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project.</li>
+            <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
+            <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+          </ul>
+        </div>
+
+        <div class="job" style="position:relative;">
+          <div class="center-circle" aria-hidden="true" style="top:12px;"></div>
+          <div class="title"><strong>GRAPHIC DESIGN SPECIALIST</strong></div>
+          <div class="period">2017 - 2018</div>
+          <div class="company">Stepping Stone Advertising, New York, NY</div>
+          <ul>
+            <li>Developed numerous marketing programs (logos, brochures, infographics, presentations, and advertisements).</li>
+            <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
+            <li>Recommended and consulted with clients on the most appropriate graphic design</li>
+            <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+          </ul>
+        </div>
+
+        <!-- add more job blocks as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll-to-top -->
+  <button class="to-top" id="toTop" aria-label="Scroll to top" title="Back to top" style="display:none">
+    <i class="fa-solid fa-angle-up"></i>
+  </button>
+
+  <script>
+    // Show/hide top button and smooth-scroll
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 250) {
+        toTop.style.display = 'flex';
+      } else {
+        toTop.style.display = 'none';
+      }
+    });
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
