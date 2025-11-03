@@ -1,0 +1,33 @@
+/* SKILLS SECTION – Horizontal Bars */
+.skills-wrapper {
+  margin-top: 30px;
+}
+
+.skill {
+  margin-bottom: 25px;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #555;
+  font-size: 15px;
+}
+
+.skill-name span:last-child {
+  color: #336163; /* Purple percentage color */
+  font-weight: 700;
+}
+
+.progress {
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg,  #a6b2b036, #577676, #336163);
+  height: 10px;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
